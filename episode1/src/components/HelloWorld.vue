@@ -1,43 +1,53 @@
-<script setup>
-import { ref } from 'vue'
+<script>
+export default {
+  name: 'HelloWorld',
+  props:{
+    msg:String
+  },
+  data(){
+    return {
+      username:'ahmet',
+      age:25,
+      isActive:true,
+      hobbies:['coding','reading','traveling'],
+      user:{
+        firstName:'Ahmet',
+        lastName:'Yılmaz'
+      }
+    }
+  },
+  methods:{
+    sayHello(){
+      console.log('this,',this)
+      console.log(`Merhaba, benim adım ${this.username} ve ben ${this.age} yaşındayım.`)
+    },
+    updateAge(newAge){
+      this.age=newAge
+    }
+  },
+  mounted(){
+    console.log('HelloWorld Bileşeni Yüklendi')
+    console.log(this)
+    console.log('Mesaj prop değeri:',this.msg)
+  },
 
-defineProps({
-  msg: String,
-})
 
-const count = ref(0)
+}
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
-
-  <div class="card">
-    <button type="button" @click="count++">count is {{ count }}</button>
-    <p>
-      Edit
-      <code>components/HelloWorld.vue</code> to test HMR
-    </p>
+  <div class="hello-world">
+    <h2>{{msg}}</h2>
+    <p>Kullanıcı Adı: {{username}}</p>
+    <p>Yaş: {{age}}</p>
+    <p>Aktif Mi: {{isActive}}</p>
+    <h3>Hobiler:</h3>
+    <ul>
+      <li v-for="(hobby, index) in hobbies" :key="index">{{hobby}}</li>
+    </ul>
+    <h3>Kullanıcı Bilgileri:</h3>
+    <p>Ad: {{user.firstName}} {{user.lastName}}</p>
+    <button @click="sayHello">Merhaba De</button>
+    <button @click="updateAge(age + 1)">Yaşı Artır</button>
   </div>
-
-  <p>
-    Check out
-    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
-      >create-vue</a
-    >, the official Vue + Vite starter
-  </p>
-  <p>
-    Learn more about IDE Support for Vue in the
-    <a
-      href="https://vuejs.org/guide/scaling-up/tooling.html#ide-support"
-      target="_blank"
-      >Vue Docs Scaling up Guide</a
-    >.
-  </p>
-  <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
 </template>
-
-<style scoped>
-.read-the-docs {
-  color: #888;
-}
-</style>
